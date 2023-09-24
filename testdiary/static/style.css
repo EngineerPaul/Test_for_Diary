@@ -18,7 +18,7 @@ body {
 }
 
 .sign {
-    position: absolute;
+    position: fixed;
     right: 10px;
     bottom: 8px;
 }

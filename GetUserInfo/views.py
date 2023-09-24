@@ -16,7 +16,7 @@ class GetUserInfoPage(TemplateView):
             'host': self.request.get_host(),
             'user_agent': self.request.headers['User-Agent'],
             'browser': self.request.META.get('HTTP_SEC_CH_UA'),  # chrome?
-            'browser_mobile': self.request.META.get('HTTP_SEC_CH_UA_MOBILE'),  # chrome?
+            'browser_mobile': '1' == self.request.META.get('HTTP_SEC_CH_UA_MOBILE')[1],
 
             # computer information
             'computer_name': self.request.META.get('COMPUTERNAME'),
@@ -29,13 +29,13 @@ class GetUserInfoPage(TemplateView):
         }
         geo_date = self.getgeo(ip=self.get_client_ip(self.request))
         if geo_date:
-            context['all_information'] += {
+            context['all_information'].update({
                 # geographic information
                 'country': geo_date['country'],
                 'subdivisions': geo_date['subdivisions'],
                 'city': geo_date['city'],
                 'time_zone': geo_date['time_zone'],
-            }
+            })
 
         return context
 
@@ -54,7 +54,7 @@ class GetUserInfoPage(TemplateView):
 
     def getgeo(self, ip):
         import maxminddb
-        db_path = r'GetUserInfo\GeoLite2-City.mmdb'
+        db_path = 'GetUserInfo/GeoLite2-City.mmdb'
         with maxminddb.open_database(db_path) as reader:
             geo_info = reader.get(ip)
             if geo_info:

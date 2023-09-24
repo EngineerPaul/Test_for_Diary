@@ -21,20 +21,21 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.4.4/mobile-detect.min.js"></script>
 <script>
+    // https://only-to-top.ru/blog/coding/2019-11-16-opredelit-mobilnoe-ustrojstvo-javascript.html
     let phone_info = document.getElementById('phone_info');
     let detect = new MobileDetect(window.navigator.userAgent)
     // если компьютер, то везде будет null
-    if (!detect.mobile()) {
-        let mobile_info = {
-        "Phone": detect.phone(), // телефон
-        "Tablet": detect.tablet(), // планшет
-        "Phone_OS": detect.os(),
-        "userAgent": detect.userAgent(),
-        }
-        for (obj in mobile_info) {
-            phone_info.innerHTML += `<p>${obj}: ${mobile_info[obj]}</p>`
-        }
+
+    let mobile_info = {
+    "Phone": detect.phone(), // телефон
+    "Tablet": detect.tablet(), // планшет
+    "Phone_OS": detect.os(),
+    "userAgent": detect.userAgent(),
     }
+    for (obj in mobile_info) {
+        phone_info.innerHTML += `<p>${obj}: ${mobile_info[obj]}</p>`
+    }
+
 </script>
 
 {% endblock content %}

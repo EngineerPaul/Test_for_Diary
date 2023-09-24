@@ -8,3 +8,4 @@ staticfiles/
 another/
 migrations/
 GeoLite2-City.mmdb
+pythonanywhere.txt

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="back">
+    <a href="{% url 'Homepage_url' %}">Вернуться на главную</a>
+</div>
+
+{% for info_k, info_v in all_information.items %}
+<p>
+    <span>
+        {{ info_k }}: 
+    </span>
+    <span>
+        {{ info_v }}
+    </span>
+</p>
+{% endfor %}
+
+<p id="phone_info"></p>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.4.4/mobile-detect.min.js"></script>
+<script>
+    let phone_info = document.getElementById('phone_info');
+    let detect = new MobileDetect(window.navigator.userAgent)
+    // если компьютер, то везде будет null
+    if (!detect.mobile()) {
+        let mobile_info = {
+        "Phone": detect.phone(), // телефон
+        "Tablet": detect.tablet(), // планшет
+        "Phone_OS": detect.os(),
+        "userAgent": detect.userAgent(),
+        }
+        for (obj in mobile_info) {
+            phone_info.innerHTML += `<p>${obj}: ${mobile_info[obj]}</p>`
+        }
+    }
+</script>
+
+{% endblock content %}

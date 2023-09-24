@@ -1,0 +1,10 @@
+django_cache/
+__pycache__/
+*.pyc
+db.sqlite3
+.env
+my_requirements.txt
+staticfiles/
+another/
+migrations/
+GeoLite2-City.mmdb

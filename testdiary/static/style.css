@@ -1,0 +1,36 @@
+body {
+    background-color: antiquewhite;
+}
+
+.header {
+    background-color: rgb(127, 255, 180);
+}
+
+.row.header {
+    text-align: center;
+    padding: 30px 0px;
+    margin: 0;
+}
+
+.header-hr {
+    margin-top: 0;
+    border: 1.5px solid rgb(219, 26, 26);
+}
+
+.sign {
+    position: absolute;
+    right: 10px;
+    bottom: 8px;
+}
+
+.p.sign {
+    margin-bottom: 0;
+}
+
+
+.back {
+    padding: 10px 15px;
+    border: 1px solid green;
+    width: 200px;
+    margin-bottom: 20px;
+}

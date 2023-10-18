@@ -34,3 +34,9 @@ body {
     width: 200px;
     margin-bottom: 20px;
 }
+.note > ol > li {
+    margin-bottom: 15px;
+}
+.links {
+    margin-bottom: 50px;
+}

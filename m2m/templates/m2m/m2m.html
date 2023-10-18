@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    .model {
+        margin: 0px 0px 50px 50px;
+    }
+    .model .model-content {
+        padding: 10px 0px;
+    }
+    .model .model-m2m {
+        padding: 10px 0px;
+    }
+</style>
+
+<div class="back">
+    <a href="{% url 'Homepage_url' %}">Вернуться на главную</a>
+</div>
+
+<h4>Records:</h4>
+<div class="model record">
+    <p>All people: {{ records }}</p>
+    <div class="model-content">
+        <p>All records params:</p>
+        {% for record in records %}
+        <p>
+            Title: {{ record.title }}; Names: {{ record.people.all }}
+        </p>
+        {% endfor %}
+    </div>
+    <div class="model-m2m">
+        <p>All records m2m relationships:</p>
+        {% for record in records_m2m %}
+        <p>
+            {{ record }}
+        </p>
+        {% endfor %}
+    </div>
+</div>
+
+<h4>People:</h4>
+<div class="model people">
+    <p>All people: {{ people }}</p>
+    <div class="model-content">
+        <p>All people params:</p>
+        {% for human in people %}
+        <p>
+            Name: {{ human.name }}; Records: {{ human.record.all }}
+        </p>
+        {% endfor %}
+    </div>
+    <div class="model-m2m">
+        <p>All people m2m relationships:</p>
+        {% for human in people_m2m %}
+        <p>
+            {{ human }}
+        </p>
+        {% endfor %}
+    </div>
+</div>
+
+<h4>People-Record:</h4>
+<div class="model people-record">
+    <p>All relationships: {{ people_record }}</p>
+    <div class="model-content">
+        {% for entity in people_record %}
+        <p>
+            people: {{ entity.people }}; record: {{ entity.record }}; color: {{ entity.color }}; assessment: {{ entity.assessment }} 
+        </p>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="note">
+    <h4>Примечания:</h4>
+    <ol>
+        <li>
+            Функция prefetch_related делает два запроса: 
+            один для запроса списка объектов базовой модели, 
+            второй - для списка сущеностей модели, с которой 
+            имеется соединение m2m. После этого ORM обрабатывает 
+            и сопоставляет два списка
+        </li>
+        <li>
+            По причине реализации леновых sql-запросов, их выполнение 
+            происходит при обращению (обработке) данных. Если к одной 
+            переменной обращаться несколько раз, то каждый раз может 
+            осуществляться новый запрос. <br>
+            Если необходимо обращаться несколько раз к одной перенной, 
+            то необходимо выполнить обработку данных внутри представления 
+            (view), а не шаблона (.html). Для этого можно сразу превратить 
+            результат в список: list(Queryset).<br>
+            В данном примере в графе People-Record выполняется два 
+            sql-запроса несмотря на то, что для запроса использовается метод
+            .select_related(), который предусматривает только один запрос. 
+            Но обращение к переменной происходит дважды. Цикл for добавляет
+            к запросу условие LIMIT и выполняется дополнительный запрос.
+        </li>
+        <li>
+            Для установления m2m связи для уже существующих сущеностей
+            используются методы:<br>
+            <span style="color: gray;">Model.objects.get(id).Model_set</span>
+            .add(entity, through_defaults) - добавить связь с одной сущностью;<br>
+            <span style="color: gray;">Model.objects.get(id).Model_set</span>
+            .set([entities], through_defaults) - добавить связь со списком сущностей;<br>
+            <span style="color: gray;">Model.objects.get(id).Model_set</span>
+            .create(new_entity, through_defaults) - создать сразу new_entity и связь с ним;<br>
+            <span style="color: gray;">Model.objects.get(id).Model_set</span>
+            .remove(entity) - удалить связь с одной сущностью;<br>
+            <span style="color: gray;">Model.objects.get(id).Model_set</span>
+            .clear() - удалить все связи.<br>
+            Здесь through_defaults - это словарь, в котором содержаться все 
+            значения для заполенния полей промежуточной таблицы (модели).
+        </li>
+        <li>
+            Django Debug Toolbar обнаружил здесь 6 sql-запросов:<br>
+            <ul>
+                <li>2 запроса на .prefetch_related() в графе Records;</li>
+                <li>2 запроса на .prefetch_related() в графе People;</li>
+                <li>2 запроса на переменную и цикл в графе People-Record.</li>
+            </ul>
+        </li>
+    </ol>
+</div>
+
+<div class="links">
+    <h4>Полезные ссылки:</h4>
+    <ul>
+        <li><a href="https://metanit.com/python/django/5.7.php">METANIT.COM</a></li>
+        <li><a href="https://stackoverflow.com/questions/45255462/django-prefetch-related-outputs-none">stackoverflow.com - None в prefetch_related</a></li>
+        <li><a href="https://docs.djangoproject.com/en/dev/ref/models/querysets/#prefetch-related">Docs</a></li>
+    </ul>
+</div>
+
+{% endblock content %}

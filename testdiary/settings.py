@@ -42,8 +42,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # "debug_toolbar",
     "root.apps.RootConfig",
     "GetUserInfo.apps.GetuserinfoConfig",
+    "m2m.apps.M2MConfig",
 ]
 
 MIDDLEWARE = [
@@ -55,6 +57,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
 ROOT_URLCONF = "testdiary.urls"
@@ -131,3 +134,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # MEDIA_ROOT = '/home/testdiary/testdiary/media'
 # MEDIA_URL = '/media/'
+
+INTERNAL_IPS = ['127.0.0.1',]  # debug_toolbar

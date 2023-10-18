@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAMA,MAAO;EACH,KAAK,EAND,OAAkB;EAOtB,SAAS,EANF,IAAI;EAOX,MAAM,EAAE,eAAe;EACvB,aAAa,EAAE,IAAI;EACnB,SAAS,EARF,KAAK;EASZ,gBAAgB,EAAE,OAAkB;EACpC,UAAU,EATF,MAAM",
+"sources": ["sass_static.scss"],
+"names": [],
+"file": "sass.css"
+}

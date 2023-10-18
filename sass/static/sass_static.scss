@@ -1,0 +1,15 @@
+// SCSS variables
+$color: rgb(123, 114, 252);
+$fontsize: 22px;
+$maxwidth: 200px;
+$textalign: center;
+
+.block {
+    color: $color;
+    font-size: $fontsize;
+    border: 2px solid green;
+    border-radius: 10px;
+    max-width: $maxwidth;
+    background-color: rgb(156, 255, 156);
+    text-align: $textalign;
+}

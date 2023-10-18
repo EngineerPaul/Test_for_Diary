@@ -25,4 +25,5 @@ urlpatterns = [
     path("", include("root.urls")),
     path("get-user-info/", include("GetUserInfo.urls")),
     path("m2m/", include("m2m.urls")),
+    path("sass/", include("sass.urls")),
 ]

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "GetUserInfo.apps.GetuserinfoConfig",
     "m2m.apps.M2MConfig",
     "sass.apps.SassConfig",
+    "case_when.apps.CaseWhenConfig"
 ]
 
 MIDDLEWARE = [

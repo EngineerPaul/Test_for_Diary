@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="back">
+    <a href="{% url 'Homepage_url' %}">Вернуться на главную</a>
+</div>
+
+<h4>Books:</h4>
+<div class="casewhen-content" style="margin-bottom: 40px; margin-left: 25px;">
+    {% for book in books %}
+    <div class="book">
+        <p>Title: {{ book.title }}</p>
+        <p>Genre: {{ book.genre }}</p>
+        <p>Number: {{ book.number }}</p>
+        
+        {% if not forloop.last %}
+        <hr style="width: 300px;">
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+<div class="note">
+    <h4>Примечания:</h4>
+    <ol>
+        <li>
+            Работа со страницей происходит вручную. Необходимо создать БД, 
+            изменить БД, очистить БД при помощи трех методов в views.
+        </li>
+        <li>
+            Изменение сразу всех numbers (за 1 sql-запрос!) происходит при 
+            помощи метода Case. Внутри него используются When и Value.
+        </li>
+        <li>
+            Атрибут сущности можно изменить в зависимости от его собственного 
+            значения, в зависимости от значения другого атрибута, оставить 
+            без изменения.
+        </li>
+        <li>
+            Метод .change_books() изменяет БД с передачей всех параметров 
+            непосредственно в функцию (вручную).<br>
+            Чтобы передать новые значения при помощи python списка, используется
+            метод .change_books_by_list(). <br>
+            Метод должен принимать на вход список кортежей с начальными и 
+            новыми значениями. Превращает его в список экземпляров класса When.
+            И передается в метод update в аругменты классу Case с использованием 
+            представления списков *args.
+        </li>
+        <li>
+            При активации метода .change_books_by_list() значения numbers 
+            меняются при каждом обновлении страницы.
+        </li>
+</div>
+
+<div class="links">
+    <h4>Полезные ссылки:</h4>
+    <ul>
+        <li><a href="https://docs.djangoproject.com/en/4.2/ref/models/conditional-expressions/">Docs</a></li>
+        <li><a href="https://code4fun.ru/sql/update-s-usloviem-v-postgresql.html">Case-When в PostgreSQL</a></li>
+    </ul>
+</div>
+
+{% endblock content %}

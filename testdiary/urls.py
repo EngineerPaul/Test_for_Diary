@@ -26,4 +26,5 @@ urlpatterns = [
     path("get-user-info/", include("GetUserInfo.urls")),
     path("m2m/", include("m2m.urls")),
     path("sass/", include("sass.urls")),
+    path("case-when/", include("case_when.urls")),
 ]
